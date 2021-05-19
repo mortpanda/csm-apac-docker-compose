@@ -1,0 +1,22 @@
+version: "3"
+services:
+  torproxy:
+    container_name: torproxy
+    entrypoint:
+      - /sbin/tini
+      - --
+      - /usr/bin/torproxy.sh
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    hostname: bb7fa8fa76ce
+    image: dperson/torproxy
+    networks:
+      - bridge
+    ports:
+      - 8118:8118/tcp
+      - 9050:9050/tcp
+    stdin_open: true
+    tty: true
+networks:
+  bridge:
+    external: true
