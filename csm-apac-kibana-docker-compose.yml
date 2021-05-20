@@ -1,0 +1,63 @@
+version: "3"
+services:
+  kibana:
+    cap_add:
+      - AUDIT_WRITE
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - KILL
+      - MKNOD
+      - NET_BIND_SERVICE
+      - NET_RAW
+      - SETFCAP
+      - SETGID
+      - SETPCAP
+      - SETUID
+      - SYS_CHROOT
+    command:
+      - /usr/local/bin/kibana-docker
+    container_name: kibana
+    entrypoint:
+      - /bin/tini
+      - --
+    environment:
+      - SERVER_NAME=kibana.server.com
+      - ELASTICSEARCH_HOSTS=http://192.168.1.117:9200   #########[Change as per your environment]#########
+      - PATH=/usr/share/kibana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ELASTIC_CONTAINER=true
+    hostname: kibana
+    image: oktacsm/csm-apac:csm-apac-kibana
+    labels:
+      com.docker.compose.config-hash: 1dc4fe79e3d1dd14b3de3da7c735d79702aaad1cc7b89f6ecff74c81e6adbccd
+      com.docker.compose.container-number: 1
+      com.docker.compose.oneoff: False
+      com.docker.compose.project: kibana-docker-compose
+      com.docker.compose.project.config_files: docker-compose.yml
+#      com.docker.compose.project.working_dir: /home/kent/elk-stack/kibana-docker-compose
+      com.docker.compose.service: kibana
+      com.docker.compose.version: 1.25.0
+      org.label-schema.build-date: 2021-02-15T13:32:51.720Z
+      org.label-schema.license: 'Elastic License'
+      org.label-schema.name: Kibana
+      org.label-schema.schema-version: 1.0
+      org.label-schema.url: https://www.elastic.co/products/kibana
+      org.label-schema.usage: https://www.elastic.co/guide/en/kibana/reference/index.html
+      org.label-schema.vcs-ref: 348233f89825946d65101f6d9082567353459b8e
+      org.label-schema.vcs-url: https://github.com/elastic/kibana
+      org.label-schema.vendor: Elastic
+      org.label-schema.version: 7.11.1
+      org.opencontainers.image.created: 2021-02-15T13:32:51.720Z
+      org.opencontainers.image.documentation: https://www.elastic.co/guide/en/kibana/reference/index.html
+      org.opencontainers.image.licenses: 'Elastic License'
+      org.opencontainers.image.revision: 348233f89825946d65101f6d9082567353459b8e
+      org.opencontainers.image.source: https://github.com/elastic/kibana
+      org.opencontainers.image.title: Kibana
+      org.opencontainers.image.url: https://www.elastic.co/products/kibana
+      org.opencontainers.image.vendor: Elastic
+      org.opencontainers.image.version: 7.11.1
+    ports:
+      - 5601:5601/tcp
+    user: kibana
+    working_dir: /usr/share/kibana

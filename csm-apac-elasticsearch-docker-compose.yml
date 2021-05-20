@@ -1,0 +1,62 @@
+version: "3"
+services:
+  elasticsearch:
+    cap_add:
+      - AUDIT_WRITE
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - KILL
+      - MKNOD
+      - NET_BIND_SERVICE
+      - NET_RAW
+      - SETFCAP
+      - SETGID
+      - SETPCAP
+      - SETUID
+      - SYS_CHROOT
+    command:
+      - eswrapper
+    container_name: elasticsearch
+    entrypoint:
+      - /bin/tini
+      - --
+      - /usr/local/bin/docker-entrypoint.sh
+    environment:
+      - discovery.type=single-node
+      - PATH=/usr/share/elasticsearch/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ELASTIC_CONTAINER=true
+    hostname: elasticsearch
+    image: oktacsm/csm-apac:csm-apac-elasticsearch
+    ipc: private
+    labels:
+      org.label-schema.build-date: 2021-02-15T13:44:09.394032Z
+      org.label-schema.license: Elastic-License-2.0
+      org.label-schema.name: Elasticsearch
+      org.label-schema.schema-version: 1.0
+      org.label-schema.url: https://www.elastic.co/products/elasticsearch
+      org.label-schema.usage: https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+      org.label-schema.vcs-ref: ff17057114c2199c9c1bbecc727003a907c0db7a
+      org.label-schema.vcs-url: https://github.com/elastic/elasticsearch
+      org.label-schema.vendor: Elastic
+      org.label-schema.version: 7.11.1
+      org.opencontainers.image.created: 2021-02-15T13:44:09.394032Z
+      org.opencontainers.image.documentation: https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+      org.opencontainers.image.licenses: Elastic-License-2.0
+      org.opencontainers.image.revision: ff17057114c2199c9c1bbecc727003a907c0db7a
+      org.opencontainers.image.source: https://github.com/elastic/elasticsearch
+      org.opencontainers.image.title: Elasticsearch
+      org.opencontainers.image.url: https://www.elastic.co/products/elasticsearch
+      org.opencontainers.image.vendor: Elastic
+      org.opencontainers.image.version: 7.11.1
+    mem_limit: 2147483648
+    memswap_limit: -1
+    networks:
+      - bridge
+    ports:
+      - 9200:9200/tcp
+      - 9300:9300/tcp
+    volumes:
+      - ##########[Specify host path here]##########:/var/lib/elasticsearch
+    working_dir: /usr/share/elasticsearch
