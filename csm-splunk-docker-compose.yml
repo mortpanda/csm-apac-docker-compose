@@ -41,7 +41,7 @@ services:
       - PYTHON_GPG_KEY_ID=0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D
       - SPLUNK_DEFAULTS_URL=
     hostname: splunk-1
-    image: splunk/splunk:latest
+    image: oktacsm/csm-apac:csm-apac-splunk
     labels:
       architecture: x86_64
       build-date: 2020-12-10T01:55:47.415057
