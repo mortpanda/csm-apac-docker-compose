@@ -22,7 +22,7 @@ services:
     environment:
       - 'LDAP_ORGANISATION=CSM APAC'
       - LDAP_DOMAIN=csm-apac.com
-      - LDAP_ADMIN_PASSWORD=Pa55word2
+      - LDAP_ADMIN_PASSWORD=######################PASSWORD HERE######################
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - LANG=en_US.UTF-8
       - LANGUAGE=en_US:en
