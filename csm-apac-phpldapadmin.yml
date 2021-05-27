@@ -1,35 +1,24 @@
 version: "3"
 services:
   csm-apac-phpldapadmin:
-    cap_add:
-      - AUDIT_WRITE
-      - CHOWN
-      - DAC_OVERRIDE
-      - FOWNER
-      - FSETID
-      - KILL
-      - MKNOD
-      - NET_BIND_SERVICE
-      - NET_RAW
-      - SETFCAP
-      - SETGID
-      - SETPCAP
-      - SETUID
-      - SYS_CHROOT
     container_name: csm-apac-phpldapadmin
     entrypoint:
       - /bootstrap.sh
     environment:
-      - LDAP_HOST=oci-4.ddns.net
+      - LDAP_HOST=10.0.0.4
       - LDAP_PORT=389
-      - LDAP_DOMAIN=dc=csm-apac,dc=com
+      - LDAP_DOMAIN=dc=csm-apac-1,dc=duckdns,dc=org
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    hostname: csm-apac-phpldapadmin
-    image: oktacsm/csm-apac:csm-apac-phpldapadmin
+    hostname: cca55136819f
+    image: docfactory/phpldapadmin:latest
+    ipc: private
+    labels:
+      maintainer: docfactory
+    logging:
+      driver: json-file
+      options: {}
+    mac_address: 02:42:ac:11:00:05
     networks:
       - bridge
     ports:
       - 800:80/tcp
-networks:
-  bridge:
-    external: true

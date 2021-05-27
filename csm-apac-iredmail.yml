@@ -1,0 +1,42 @@
+version: "3"
+services:
+  iredmail:
+    command:
+      - '/usr/bin/supervisord -c /etc/supervisor/supervisord.conf'
+    container_name: iredmail
+    entrypoint:
+      - /bin/bash
+      - /entrypoint.sh
+    environment:
+      - HOSTNAME=iredmail.csm-apac-1.duckdns.org
+      - FIRST_MAIL_DOMAIN=csm-apac-1.duckdns.org
+      - FIRST_MAIL_DOMAIN_ADMIN_PASSWORD=[PASSWORD HERE]
+      - MLMMJADMIN_API_TOKEN=4Gi6h/7dkCEQHWMLy7kSc+Z4+R2OfB3TSbiw7ukaTS4=
+      - ROUNDCUBE_DES_KEY=JZNZHsg0muRVZLvH2RS3B/RWHG4rlkbS
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    hostname: iredmail.csm-apac-1.duckdns.org
+    image: iredmail/mariadb:stable
+    ipc: private
+    logging:
+      driver: json-file
+      options: {}
+    mac_address: 02:42:ac:11:00:08
+    networks:
+      - bridge
+    ports:
+      - 143:143/tcp
+      - 25:25/tcp
+      - 1443:443/tcp
+      - 801:80/tcp
+    volumes:
+      - /iredmail/data/ssl:/opt/iredmail/ssl
+      - /iredmail/data/sa_rules:/var/lib/spamassassin
+      - /iredmail/data/postfix_queue:/var/spool/postfix
+      - /iredmail/data/backup:/var/vmail/backup
+      - /iredmail/data/mailboxes:/var/vmail/vmail1
+      - /iredmail/data/imapsieve_copy:/var/vmail/imapsieve_copy
+      - /iredmail/data/mysql:/var/lib/mysql
+      - /iredmail/data/clamav:/var/lib/clamav
+      - /iredmail/data/mlmmj:/var/vmail/mlmmj
+      - /iredmail/data/mlmmj-archive:/var/vmail/mlmmj-archive
+      - /iredmail/data/custom:/opt/iredmail/custom

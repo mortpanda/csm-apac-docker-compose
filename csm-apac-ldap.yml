@@ -16,13 +16,15 @@ services:
       - SETPCAP
       - SETUID
       - SYS_CHROOT
+    command:
+      - --d
     container_name: csm-apac-ldap
     entrypoint:
       - /container/tool/run
     environment:
       - 'LDAP_ORGANISATION=CSM APAC'
-      - LDAP_DOMAIN=csm-apac.com
-      - LDAP_ADMIN_PASSWORD=######################PASSWORD HERE######################
+      - LDAP_DOMAIN=csm-apac-1.duckdns.org
+      - LDAP_ADMIN_PASSWORD=[PASSWORD HERE]
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - LANG=en_US.UTF-8
       - LANGUAGE=en_US:en
@@ -30,11 +32,10 @@ services:
     hostname: csm-apac-ldap
     image: oktacsm/csm-apac:csm-apac-openldap
     ipc: private
-    networks:
-      - bridge
+    logging:
+      driver: json-file
+      options: {}
+    mac_address: 02:42:ac:11:00:07
     ports:
       - 389:389/tcp
-    stdin_open: true
-networks:
-  bridge:
-    external: true
+    restart: unless-stopped
