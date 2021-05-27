@@ -1,0 +1,36 @@
+version: "3"
+services:
+  rainloop:
+    cap_add:
+      - AUDIT_WRITE
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - KILL
+      - MKNOD
+      - NET_BIND_SERVICE
+      - NET_RAW
+      - SETFCAP
+      - SETGID
+      - SETPCAP
+      - SETUID
+      - SYS_CHROOT
+    command:
+      - '/bin/sh -c php-fpm -D'
+    container_name: rainloop
+    entrypoint:
+      - /usr/sbin/lighttpd
+      - -D
+      - -f
+      - /etc/lighttpd/lighttpd.conf
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    hostname: rainloop
+    image: oktacsm/csm-apac:csm-apac-rainloop
+    ports:
+      - 801:80/tcp
+    restart: unless-stopped
+    volumes:
+      - e54c26cb80211a94379cabacaec182cc706108c8c8dddbbc62c3a8546db52bf4:/var/www/data
+
