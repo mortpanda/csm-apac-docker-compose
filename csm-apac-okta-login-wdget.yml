@@ -1,0 +1,37 @@
+version: "3"
+services:
+  okta-login-widget:
+    cap_add:
+      - AUDIT_WRITE
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - KILL
+      - MKNOD
+      - NET_BIND_SERVICE
+      - NET_RAW
+      - SETFCAP
+      - SETGID
+      - SETPCAP
+      - SETUID
+      - SYS_CHROOT
+    command:
+      - httpd-foreground
+    container_name: okta-login-widget
+    environment:
+      - PATH=/usr/local/apache2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - HTTPD_PREFIX=/usr/local/apache2
+      - HTTPD_VERSION=2.4.48
+      - HTTPD_SHA256=1bc826e7b2e88108c7e4bf43c026636f77a41d849cfb667aa7b5c0b86dbf966c
+      - HTTPD_PATCHES=
+    hostname: okta-login-widget
+    image: oktacsm/csm-apac:okta-login-widget
+    ports:
+      - 810:80/tcp
+    restart: unless-stopped
+    volumes:
+      - /media/data-01/okta-widget:/usr/local/apache2/htdocs
+    working_dir: /usr/local/apache2
+
+
